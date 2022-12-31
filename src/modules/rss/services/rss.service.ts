@@ -1,10 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { Cron } from '@nestjs/schedule';
 import * as Parser from 'rss-parser';
 import { FardayeEghtesadRssNewsService } from './fardaye-eghtesad';
 
 @Injectable()
 export class RssService {
   constructor(private readonly fardayeEghtesadService: FardayeEghtesadRssNewsService) {}
+
+  @Cron('*/10  * * * *')
+  async getFardayEghtesadNews() {
+    console.log('=============================> Called Every 10 Minutes');
+    return this.fardayeEghtesadService.saveNews();
+  }
+
   async test() {
     const parser = new Parser();
     //0 http://news.mrud.ir/rss?pl=4
