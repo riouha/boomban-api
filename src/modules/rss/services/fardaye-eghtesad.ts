@@ -24,6 +24,7 @@ export class FardayeEghtesadRssNewsService implements IRssNewsService {
       post.status = 'Published';
       post.type = 'RssPost';
       post.title = rss.items[i].title;
+      post.content = rss.items[i].content;
       post.slug = rss.items[i].title;
       post.link = rss.items[i].link;
       post.thumbnail = rss.items[i].enclosure?.url;
