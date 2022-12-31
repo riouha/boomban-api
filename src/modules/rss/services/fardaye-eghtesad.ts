@@ -41,6 +41,7 @@ export class FardayeEghtesadRssNewsService implements IRssNewsService {
 
   async saveNews() {
     const news = await this.getNews();
+    console.log('added news', news.length);
     return this.postRepo.save(news);
   }
 }
