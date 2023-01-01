@@ -4,11 +4,12 @@ import * as Parser from 'rss-parser';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { RssProviders } from './rss-providers';
 
 @Injectable()
 export class FardayeEghtesadRssNewsService implements IRssNewsService {
-  URL = 'https://www.fardayeeghtesad.com/rss/tp/71';
-  NAME = 'فردای اقتصاد';
+  URL = RssProviders.FardayeEghtesad.url;
+  NAME = RssProviders.FardayeEghtesad.name;
   constructor(@InjectRepository(Post) private postRepo: Repository<Post>) {}
 
   async getNews() {
