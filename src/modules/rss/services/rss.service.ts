@@ -24,6 +24,7 @@ export class RssService {
     //6 https://ecoiran.com/fa/feeds/?p=Y2F0ZWdvcmllcz0xNDc%2C
     //7
     const rss = await parser.parseURL('https://www.fardayeeghtesad.com/rss/tp/71');
+
     // const rss = await this.fardayeEghtesadService.saveNews();
     return rss;
   }
