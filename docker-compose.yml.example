@@ -12,6 +12,8 @@ services:
       DB_NAME: dbname
     ports:
       - "3400:3400"
+    volumes:
+      - ./uploads:/app/uploads
     networks:
       - postgresql_pgnet
 

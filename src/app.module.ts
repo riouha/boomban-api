@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import { CategoryModule } from './modules/category/category.module';
 import { FileModule } from './modules/file/file.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { FileModule } from './modules/file/file.module';
     RssModule,
     CategoryModule,
     FileModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],

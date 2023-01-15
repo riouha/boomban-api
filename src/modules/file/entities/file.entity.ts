@@ -7,8 +7,13 @@ export class File {
 
   @Column()
   filepath: string;
+
+  @Column()
+  name: string;
+
   @Column({ type: 'int8', nullable: true })
   size: number;
+
   @Column()
   mimetype: string;
 

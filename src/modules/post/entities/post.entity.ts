@@ -4,12 +4,14 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import { Transform } from 'class-transformer';
 import { Category } from '../../category/entities/category.entity';
+import { User } from '../../user/entities/user.entity';
 
 @Entity()
 @Unique('UNQ_src_link', ['source', 'link'])
@@ -31,9 +33,11 @@ export class Post {
 
   @Column({ nullable: true })
   content?: string;
-
   @Column({ nullable: true })
-  thumbnail?: string;
+  htmlContent?: string;
+
+  @Column()
+  thumbnail: string;
 
   //#region seo
   @Column({ nullable: true })
@@ -61,7 +65,10 @@ export class Post {
 
   //########################################
   @Column({ nullable: true })
-  userId?: number;
+  createUserId?: number;
+  @ManyToOne(() => User)
+  createUser?: User;
+
   @Transform(({ value }) => Intl.DateTimeFormat('fa-IR', { dateStyle: 'short', timeStyle: 'short' }).format(value))
   @CreateDateColumn()
   createdAt: Date;

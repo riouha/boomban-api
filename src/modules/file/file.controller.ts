@@ -22,9 +22,22 @@ export class FileController {
     FileInterceptor('file', {
       //   storage: diskStorage({
       //     destination: './files',
-      //     filename: editFileName,
+      // filename: (req, file, callback) => {
+      //   const name = file.originalname.split('.')[0];
+      //   const fileExtName = extname(file.originalname);
+      //   const randomName = Array(4)
+      //     .fill(null)
+      //     .map(() => Math.round(Math.random() * 16).toString(16))
+      //     .join('');
+      //   callback(null, `${name}-${randomName}${fileExtName}`);
+      // },
       //   }),
-      //   fileFilter: imageFileFilter,
+      // fileFilter: (req, file, callback) => {
+      //   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+      //     return callback(new Error('Only image files are allowed!'), false);
+      //   }
+      //   callback(null, true);
+      // },
     }),
   )
   async uploadImage(
@@ -32,16 +45,19 @@ export class FileController {
     @UploadedFile() file: Express.Multer.File,
   ) {
     if (!file) throw new BadRequestException('no file uploaded');
-    const response = {
-      id: 1,
-      name: file.originalname,
-      path: file.filename,
-    };
-    return response;
+    return this.fileService.saveImage(file);
+  }
+
+  @Get('/gallery')
+  async getGallery() {
+    const result = await this.fileService.getGallery();
+    return { result };
   }
 
   @Get('/:path')
   seeUploadedFile(@Param('path') path: string): StreamableFile {
+    console.log('###############################', path);
+
     const file = createReadStream(join(process.cwd(), 'uploads', path));
     return new StreamableFile(file, { type: 'image', disposition: 'inline' });
 
