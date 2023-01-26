@@ -7,9 +7,9 @@ import { FardayeEghtesadRssNewsService } from './fardaye-eghtesad';
 export class RssService {
   constructor(private readonly fardayeEghtesadService: FardayeEghtesadRssNewsService) {}
 
-  @Cron('*/10 * * * *')
+  @Cron('0 */12 * * *')
   async getFardayEghtesadNews() {
-    console.log('=============================> Called Every 10 Minutes');
+    console.log('=============================> Called Every 12 hour');
     return this.fardayeEghtesadService.saveNews();
   }
 

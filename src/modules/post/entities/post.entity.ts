@@ -19,7 +19,7 @@ export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true, generated: 'uuid' })
   slug: string;
 
   @Column()
@@ -69,9 +69,9 @@ export class Post {
   @ManyToOne(() => User)
   createUser?: User;
 
-  @Transform(({ value }) => Intl.DateTimeFormat('fa-IR', { dateStyle: 'short', timeStyle: 'short' }).format(value))
+  // @Transform(({ value }) => Intl.DateTimeFormat('fa-IR', { dateStyle: 'short', timeStyle: 'short' }).format(value))
   @CreateDateColumn()
-  createdAt: Date;
+  createDate: Date;
   @UpdateDateColumn()
   updateDate: Date;
 }

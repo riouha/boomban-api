@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { Post } from './entities/post.entity';
@@ -29,8 +29,14 @@ export class PostService {
   async createPost(dto: CreatePostDto) {
     const post = this.postRepo.create(dto);
     post.type = 'Post';
-    post.slug = Date.now().toString();
+    // post.slug = Date.now().toString();
     post.createUserId = 1;
     return this.postRepo.save(post);
+  }
+
+  async getPostBySlug(slug: string) {
+    const post = this.postRepo.findOne({ where: { slug } });
+    if (!post) throw new NotFoundException('post not found');
+    return post;
   }
 }
